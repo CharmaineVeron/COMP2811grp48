@@ -23,10 +23,12 @@
 #include <QDesktopServices>
 #include <QImageReader>
 #include <QMessageBox>
+#include <QScrollArea>
 #include <QtCore/QDir>
 #include <QtCore/QDirIterator>
 #include "the_player.h"
 #include "the_button.h"
+#include "responsive_layout.h"
 
 
 using namespace std;
@@ -110,6 +112,8 @@ int main(int argc, char *argv[]) {
 
     // the QMediaPlayer which controls the playback
     ThePlayer *player = new ThePlayer;
+
+    videoWidget->setMinimumSize(680,500);
     player->setVideoOutput(videoWidget);
 
     // a row of buttons
@@ -117,33 +121,50 @@ int main(int argc, char *argv[]) {
     // a list of the buttons
     vector<TheButton*> buttons;
     // the buttons are arranged horizontally
-    QHBoxLayout *layout = new QHBoxLayout();
-    buttonWidget->setLayout(layout);
+    QVBoxLayout *layout = new QVBoxLayout();
+    layout->setMargin(0);
+    //buttonWidget->setMinimumSize(300, 680);
 
 
     // create the four buttons
-    for ( int i = 0; i < 4; i++ ) {
+    for ( int i = 0; i < 6; i++ ) {
         TheButton *button = new TheButton(buttonWidget);
         button->connect(button, SIGNAL(jumpTo(TheButtonInfo* )), player, SLOT (jumpTo(TheButtonInfo* ))); // when clicked, tell the player to play.
         buttons.push_back(button);
+        //button->adjustSize();
         layout->addWidget(button);
         button->init(&videos.at(i));
     }
+    //buttonWidget->setLayout(layout);
+
+    //QWidget *widget = new QWidget();
+    buttonWidget->setMinimumSize(320, 1090); //buttons.size() * 180
+    buttonWidget->setLayout(layout);
+
+    QScrollArea *scroll = new QScrollArea();
+    scroll->setMinimumSize(320, 680);
+    scroll->setWidgetResizable(true);
+    scroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+    //scroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+
+    scroll->setWidget(buttonWidget);
 
     // tell the player what buttons and videos are available
     player->setContent(&buttons, & videos);
 
     // create the main window and layout
     QWidget window;
-    QVBoxLayout *top = new QVBoxLayout();
+    QGridLayout *top = new QGridLayout();
+    //ResponsiveLayout *top = new ResponsiveLayout();
     window.setLayout(top);
     window.setWindowTitle("tomeo");
-    window.setMinimumSize(800, 680);
+    window.setMinimumSize(1500, 680);
 
     // add the video and the buttons to the top level widget
-    top->addWidget(videoWidget);
-    top->addWidget(buttonWidget);
+    top->addWidget(videoWidget,1,1,Qt::Alignment());
 
+    top->addWidget(scroll,1,2,Qt::Alignment());
+    //buttonWidget->setGeometry(0,0,300,680);
     // showtime!
     window.show();
 

@@ -2,6 +2,8 @@
 // Created by twak on 11/11/2019.
 //
 
+//prototype 1 - Changes from Bala
+
 #ifndef CW2_THE_PLAYER_H
 #define CW2_THE_PLAYER_H
 
@@ -9,6 +11,7 @@
 #include <QApplication>
 #include <QMediaPlayer>
 #include "the_button.h"
+#include "pltl.h"
 #include <vector>
 #include <QTimer>
 
@@ -49,6 +52,10 @@ public slots:
 
     // start playing this ButtonInfo
     void jumpTo (TheButtonInfo* button);
+    // pause is clicked
+    void pauseclick ();
+    // play is clicked
+    void playclick ();
 };
 
 #endif //CW2_THE_PLAYER_H

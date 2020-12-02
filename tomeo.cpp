@@ -29,7 +29,12 @@
 #include "the_player.h"
 #include "the_button.h"
 #include "responsive_layout.h"
+#include "movie_slider.h"
+#include "pltl.h"
+#include <QtWidgets/QSlider>
+#include <QtWidgets>
 
+//Prototype 1 - changes from Oleh
 
 using namespace std;
 
@@ -120,7 +125,7 @@ int main(int argc, char *argv[]) {
     QWidget *buttonWidget = new QWidget();
     // a list of the buttons
     vector<TheButton*> buttons;
-    // the buttons are arranged horizontally
+    // the buttons are arranged vertically
     QVBoxLayout *layout = new QVBoxLayout();
     layout->setMargin(0);
     //buttonWidget->setMinimumSize(300, 680);
@@ -135,9 +140,7 @@ int main(int argc, char *argv[]) {
         layout->addWidget(button);
         button->init(&videos.at(i));
     }
-    //buttonWidget->setLayout(layout);
 
-    //QWidget *widget = new QWidget();
     buttonWidget->setMinimumSize(320, 1090); //buttons.size() * 180
     buttonWidget->setLayout(layout);
 
@@ -145,9 +148,32 @@ int main(int argc, char *argv[]) {
     scroll->setMinimumSize(320, 680);
     scroll->setWidgetResizable(true);
     scroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-    //scroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+    scroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 
     scroll->setWidget(buttonWidget);
+
+    //Prototype 1 - changes from Bala
+    QWidget *pbut = new QWidget();
+    PlayerTools *pause = new PlayerTools(pbut);
+    pause->connect(pause, SIGNAL(pauseclick()), player, SLOT (pauseclick()));
+
+    //add onto Bala's - me
+    QWidget *videoOptions = new QWidget();
+
+    QHBoxLayout *layout2 = new QHBoxLayout();
+    //layout2->setMargin(0);
+    layout2->addStretch(133);
+    layout2->addWidget(pbut, Qt::AlignCenter);
+    videoOptions->setMinimumSize(680, 100);
+    videoOptions->setLayout(layout2);
+
+    //Prototype 1 - changes from Oleh
+    MovieSlider *mslider = new MovieSlider();
+    mslider->setMinimumSize(680,70);
+    MovieSlider::connect(player, SIGNAL(durationChanged(qint64)), mslider, SLOT(durChanged(qint64)));
+    ThePlayer::connect(mslider, SIGNAL(timestampChanged(qint64)), player, SLOT(playat(qint64)));
+    MovieSlider::connect(player, SIGNAL(positionChanged(qint64)), mslider, SLOT(videoMoved(qint64)));
+
 
     // tell the player what buttons and videos are available
     player->setContent(&buttons, & videos);
@@ -155,16 +181,16 @@ int main(int argc, char *argv[]) {
     // create the main window and layout
     QWidget window;
     QGridLayout *top = new QGridLayout();
-    //ResponsiveLayout *top = new ResponsiveLayout();
     window.setLayout(top);
     window.setWindowTitle("tomeo");
     window.setMinimumSize(1500, 680);
 
     // add the video and the buttons to the top level widget
     top->addWidget(videoWidget,1,1,Qt::Alignment());
+    top->addWidget(mslider,2,1,Qt::Alignment());
+    top->addWidget(videoOptions,3,1);
+    top->addWidget(scroll,1,2,3,2);
 
-    top->addWidget(scroll,1,2,Qt::Alignment());
-    //buttonWidget->setGeometry(0,0,300,680);
     // showtime!
     window.show();
 

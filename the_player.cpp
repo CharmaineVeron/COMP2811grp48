@@ -1,6 +1,7 @@
 //
 // Created by twak on 11/11/2019.
 //
+//Prototype 1 - changes from Bala
 
 #include "the_player.h"
 
@@ -15,9 +16,9 @@ void ThePlayer::setContent(std::vector<TheButton*>* b, std::vector<TheButtonInfo
 
 // change the image and video for one button every one second
 void ThePlayer::shuffle() {
-    //TheButtonInfo* i = & infos -> at (rand() % infos->size() );
+//    TheButtonInfo* i = & infos -> at ( updateCount % infos->size() );
 //        setMedia(*i->url);
-    //buttons -> at( updateCount++ % buttons->size() ) -> init( i );
+//    buttons -> at( updateCount++ % buttons->size() ) -> init( i );
 }
 
 void ThePlayer::playStateChanged (QMediaPlayer::State ms) {
@@ -32,5 +33,19 @@ void ThePlayer::playStateChanged (QMediaPlayer::State ms) {
 
 void ThePlayer::jumpTo (TheButtonInfo* button) {
     setMedia( * button -> url);
+    play();
+}
+
+//void ThePlayer::playat(qint64 value) {
+//    setPosition(value);
+//}
+
+//Bala
+void ThePlayer::pauseclick () {
+    pause();
+}
+
+
+void ThePlayer::playclick () {
     play();
 }

@@ -156,6 +156,14 @@ int main(int argc, char *argv[]) {
     QWidget *pbut = new QWidget();
     PlayerTools *pause = new PlayerTools(pbut);
     pause->connect(pause, SIGNAL(pauseclick()), player, SLOT (pauseclick()));
+    //Play
+    QWidget *plbut = new QWidget();
+    PlayerTools1 *play = new PlayerTools1(plbut);
+    play->connect(play, SIGNAL(playclick()), player, SLOT (playclick()));
+    //Stop
+    QWidget *stbut = new QWidget();
+    PlayerTools2 *stop = new PlayerTools2(stbut);
+    stop->connect(stop, SIGNAL(stopclick()), player, SLOT (stopclick()));
 
     //add onto Bala's - me
     QWidget *videoOptions = new QWidget();
@@ -164,6 +172,8 @@ int main(int argc, char *argv[]) {
     //layout2->setMargin(0);
     layout2->addStretch(133);
     layout2->addWidget(pbut, Qt::AlignCenter);
+    layout2->addWidget(plbut, Qt::AlignCenter);
+    layout2->addWidget(stbut, Qt::AlignCenter);
     videoOptions->setMinimumSize(680, 100);
     videoOptions->setLayout(layout2);
 

@@ -4,6 +4,15 @@
 //Prototype 1 - changes from Bala
 
 #include "the_player.h"
+#include "fsbut.h"
+#include <QBoxLayout>
+#include <QSlider>
+#include <QStyle>
+#include <QToolButton>
+#include <QComboBox>
+#include <QWidget>
+#include <QDialog>
+
 
 using namespace std;
 
@@ -36,10 +45,6 @@ void ThePlayer::jumpTo (TheButtonInfo* button) {
     play();
 }
 
-//void ThePlayer::playat(qint64 value) {
-//    setPosition(value);
-//}
-
 //Bala
 void ThePlayer::pauseclick () {
     pause();
@@ -49,3 +54,7 @@ void ThePlayer::pauseclick () {
 void ThePlayer::playclick () {
     play();
 }
+
+
+
+

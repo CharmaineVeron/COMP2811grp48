@@ -18,5 +18,3 @@ void PlayerTools::plclicked() {
     emit playclick();
 }
 
-
-

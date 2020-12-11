@@ -7,7 +7,6 @@
 MovieSlider::MovieSlider(QWidget *parent) : QWidget(parent)
 {
     time = new QLCDNumber();
-    //time->setMinimumSize(5,55);
     time->setDigitCount(2); //char
     time->setStyleSheet("border: 1px solid transparent"); //char
     slider = new QSlider(Qt::Horizontal);
@@ -41,5 +40,6 @@ void MovieSlider::videoMoved(qint64 rawduration1){
     time->display(newtime);
     emit retimestamp(static_cast<int>(rawduration1));
 }
+
 
 

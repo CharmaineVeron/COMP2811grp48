@@ -156,6 +156,14 @@ int main(int argc, char *argv[]) {
     QWidget *pbut = new QWidget();
     PlayerTools *pause = new PlayerTools(pbut);
     pause->connect(pause, SIGNAL(pauseclick()), player, SLOT (pauseclick()));
+    //Play
+    QWidget *plbut = new QWidget();
+    PlayerTools1 *play = new PlayerTools1(plbut);
+    play->connect(play, SIGNAL(playclick()), player, SLOT (playclick()));
+    //Stop
+    QWidget *stbut = new QWidget();
+    PlayerTools2 *stop = new PlayerTools2(stbut);
+    stop->connect(stop, SIGNAL(stopclick()), player, SLOT (stopclick()));
 
     //Prototype 2 - changes from Leo
     FSBUT *but1 = new FSBUT;
@@ -170,7 +178,12 @@ int main(int argc, char *argv[]) {
     layout2->addWidget(but1);
     layout2->addStretch(100);
     layout2->addWidget(pbut, Qt::AlignCenter);
+//<<<<<<< HEAD
 
+//=======
+    layout2->addWidget(plbut, Qt::AlignCenter);
+    layout2->addWidget(stbut, Qt::AlignCenter);
+//>>>>>>> f71bb5b6ec0e1723c3f71e0ba026fbcd6b50c84b
     videoOptions->setMinimumSize(680, 100);
     videoOptions->setLayout(layout2);
 

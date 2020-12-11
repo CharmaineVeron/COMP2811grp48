@@ -14,7 +14,15 @@ void PlayerTools::paclicked() {
     emit pauseclick();
 }
 
-void PlayerTools::plclicked() {
+void PlayerTools1::plclicked() {
     emit playclick();
+}
+
+void PlayerTools2::stpclicked() {
+    emit stopclick();
+}
+
+void PlayerTools3::skipclicked() {
+    emit skipclick();
 }
 

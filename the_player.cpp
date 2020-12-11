@@ -55,6 +55,11 @@ void ThePlayer::playclick () {
     play();
 }
 
+void ThePlayer::stopclick () {
+    stop();
+}
 
-
+void ThePlayer::skipclick () {
+    //next();
+}
 

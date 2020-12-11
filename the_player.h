@@ -56,7 +56,10 @@ public slots:
     void pauseclick ();
     // play is clicked
     void playclick ();
-    //void setFulScreen();
+    // stop is clicked
+    void stopclick ();
+    // stop is clicked
+    void skipclick ();
 };
 
 #endif //CW2_THE_PLAYER_H

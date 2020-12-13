@@ -49,7 +49,7 @@ private slots:
     void playStateChanged (QMediaPlayer::State ms);
 
 public slots:
-
+    void playat(qint64 value);
     // start playing this ButtonInfo
     void jumpTo (TheButtonInfo* button);
     // pause is clicked

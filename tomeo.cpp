@@ -115,16 +115,16 @@ int main(int argc, char *argv[]) {
         exit(-1);
     }
 
+    //prototype 2 - changes from charmaine
     // the widget that will show the video
     VideoWidget*videoWidget = new VideoWidget;
 
     // the QMediaPlayer which controls the playback
     ThePlayer *player = new ThePlayer;
 
+    //prototyp 1 - changes from charmaine
     videoWidget->setMinimumSize(680,500);
     player->setVideoOutput(videoWidget);
-
-
     // a row of buttons
     QWidget *buttonWidget = new QWidget();
     // a list of the buttons
@@ -186,7 +186,7 @@ int main(int argc, char *argv[]) {
     QVideoWidget::connect(videoWidget, SIGNAL(brightnessChanged(int)), luminocity, SLOT(setValue(int)));
     QVideoWidget::connect(luminocity, SIGNAL(sliderMoved(int)), videoWidget, SLOT(setBrightness(int)));
 
-    //add onto Bala's - me
+    //Prototype 1,2 - changes from Charmaine
     QWidget *videoOptions = new QWidget();
     QHBoxLayout *layout2 = new QHBoxLayout();
     layout2->addWidget(luminocity, Qt::AlignCenter);

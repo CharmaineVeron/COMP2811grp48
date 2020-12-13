@@ -6,7 +6,8 @@
 #define CW2_THE_BUTTON_H
 
 
-#include <QPushButton>
+//#include <QPushButton>
+#include <QToolButton>
 #include <QUrl>
 
 
@@ -19,13 +20,15 @@ public:
     TheButtonInfo ( QUrl* url, QIcon* icon) : url (url), icon (icon) {}
 };
 
-class TheButton : public QPushButton {
+class TheButton : public QToolButton {
     Q_OBJECT
 
 public:
     TheButtonInfo* info;
 
-     TheButton(QWidget *parent) :  QPushButton(parent) {
+     TheButton(QWidget *parent) :  QToolButton(parent) {
+//         setToolButtonStyle(Qt::);
+         setText("hi");
          setIconSize(QSize(320,180)); //200,110
          connect(this, SIGNAL(released()), this, SLOT (clicked() )); // if QPushButton clicked...then run clicked() below
     }

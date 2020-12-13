@@ -45,6 +45,10 @@ void ThePlayer::jumpTo (TheButtonInfo* button) {
     play();
 }
 
+void ThePlayer::playat(qint64 value){
+    setPosition(value);
+}
+
 //Bala
 void ThePlayer::pauseclick () {
     pause();

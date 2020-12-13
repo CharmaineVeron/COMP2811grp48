@@ -9,7 +9,7 @@ class FSBUT : public QPushButton
 
 public:
     FSBUT(QWidget *parent = NULL):QPushButton(parent){
-        connect(this, SIGNAL(clicked()), this, SLOT(onClicked()));
+        connect(this, SIGNAL(clicked()), this, SLOT(onClick()));
     }
 
 };

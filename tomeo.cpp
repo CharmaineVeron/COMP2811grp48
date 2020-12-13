@@ -176,7 +176,7 @@ int main(int argc, char *argv[]) {
     MovieSlider *mslider = new MovieSlider();
     mslider->setMinimumSize(680,70);
     MovieSlider::connect(player, SIGNAL(durationChanged(qint64)), mslider, SLOT(durChanged(qint64)));
-    ThePlayer::connect(mslider, SIGNAL(timestampChanged(qint64)), player, SLOT(playat(qint64)));
+    ThePlayer::connect(mslider, SIGNAL(timestampChanged(qint64)), player, SLOT(playat(qint32)));
     MovieSlider::connect(player, SIGNAL(positionChanged(qint64)), mslider, SLOT(videoMoved(qint64)));
 
     //Prototype 2 -- changes from Oleh

@@ -134,7 +134,7 @@ int main(int argc, char *argv[]) {
     layout->setMargin(0);
     //buttonWidget->setMinimumSize(300, 680);
     // create the four buttons
-    for ( int i = 0; i <6; i++ ) {
+    for ( unsigned i = 0; i <videos.size(); i++ ) {
         TheButton *button = new TheButton(buttonWidget);
         button->connect(button, SIGNAL(jumpTo(TheButtonInfo* )), player, SLOT (jumpTo(TheButtonInfo* ))); // when clicked, tell the player to play.
         buttons.push_back(button);
@@ -143,7 +143,7 @@ int main(int argc, char *argv[]) {
         button->init(&videos.at(i));
     }
 
-    buttonWidget->setMinimumSize(320, 1090); //buttons.size() * 180
+    buttonWidget->setMinimumSize(320, videos.size() * 180); //buttons.size() * 180
     buttonWidget->setLayout(layout);
     QScrollArea *scroll = new QScrollArea();
     scroll->setMinimumSize(320, 680);

@@ -166,26 +166,11 @@ int main(int argc, char *argv[]) {
     stop->connect(stop, SIGNAL(stopclick()), player, SLOT (stopclick()));
 
     //Prototype 2 - changes from Leo
-    FSBUT *but1 = new FSBUT;
-    but1->setText("FullScreen");
-    but1->setMaximumSize(100,100);
-    but1->setStyleSheet("border: 1px solid transparent; background-color : transparent; color : white;");
-    but1->connect(but1, SIGNAL(clicked()),videoWidget,SLOT(full()));
-
-    //add onto Bala's - me
-    QWidget *videoOptions = new QWidget();
-    QHBoxLayout *layout2 = new QHBoxLayout();
-    layout2->addWidget(but1);
-    layout2->addStretch(100);
-    layout2->addWidget(pbut, Qt::AlignCenter);
-//<<<<<<< HEAD
-
-//=======
-    layout2->addWidget(plbut, Qt::AlignCenter);
-    layout2->addWidget(stbut, Qt::AlignCenter);
-//>>>>>>> f71bb5b6ec0e1723c3f71e0ba026fbcd6b50c84b
-    videoOptions->setMinimumSize(680, 100);
-    videoOptions->setLayout(layout2);
+    FSBUT *fullscreenbut = new FSBUT;
+    fullscreenbut->setText("FullScreen");
+    fullscreenbut->setMaximumSize(100,100);
+    fullscreenbut->setStyleSheet("border: 1px solid transparent; background-color : transparent; color : white;");
+    fullscreenbut->connect(fullscreenbut, SIGNAL(clicked()),videoWidget,SLOT(full()));
 
     //Prototype 1 - changes from Oleh
     MovieSlider *mslider = new MovieSlider();
@@ -201,6 +186,21 @@ int main(int argc, char *argv[]) {
     QVideoWidget::connect(videoWidget, SIGNAL(brightnessChanged(int)), luminocity, SLOT(setValue(int)));
     QVideoWidget::connect(luminocity, SIGNAL(sliderMoved(int)), videoWidget, SLOT(setBrightness(int)));
 
+    //add onto Bala's - me
+    QWidget *videoOptions = new QWidget();
+    QHBoxLayout *layout2 = new QHBoxLayout();
+    layout2->addWidget(luminocity, Qt::AlignCenter);
+    layout2->addStretch(50);
+    layout2->addWidget(pbut, Qt::AlignCenter);
+//<<<<<<< HEAD
+
+//=======
+    layout2->addWidget(plbut, Qt::AlignCenter);
+    layout2->addWidget(stbut, Qt::AlignCenter);
+//>>>>>>> f71bb5b6ec0e1723c3f71e0ba026fbcd6b50c84b
+    layout2->addWidget(fullscreenbut, Qt::AlignCenter);
+    videoOptions->setMinimumSize(680, 100);
+    videoOptions->setLayout(layout2);
 
     // tell the player what buttons and videos are available
     player->setContent(&buttons, & videos);
@@ -225,10 +225,6 @@ int main(int argc, char *argv[]) {
 
     top->addWidget(videoWidget,1,1,Qt::Alignment());
     top->addWidget(mslider,2,1,Qt::Alignment());
-
-    //added here
-
-    top->addWidget(luminocity);
 
     top->addWidget(videoOptions,3,1);
     top->addWidget(scroll,1,2,3,2);

@@ -194,6 +194,13 @@ int main(int argc, char *argv[]) {
     ThePlayer::connect(mslider, SIGNAL(timestampChanged(qint64)), player, SLOT(playat(qint64)));
     MovieSlider::connect(player, SIGNAL(positionChanged(qint64)), mslider, SLOT(videoMoved(qint64)));
 
+    //Prototype 2 -- changes from Oleh
+    QSlider *luminocity = new QSlider(Qt::Horizontal);
+    luminocity->setRange(-100,100);
+    luminocity->setValue(videoWidget->brightness());
+    QVideoWidget::connect(videoWidget, SIGNAL(brightnessChanged(int)), luminocity, SLOT(setValue(int)));
+    QVideoWidget::connect(luminocity, SIGNAL(sliderMoved(int)), videoWidget, SLOT(setBrightness(int)));
+
 
     // tell the player what buttons and videos are available
     player->setContent(&buttons, & videos);
@@ -218,6 +225,11 @@ int main(int argc, char *argv[]) {
 
     top->addWidget(videoWidget,1,1,Qt::Alignment());
     top->addWidget(mslider,2,1,Qt::Alignment());
+
+    //added here
+
+    top->addWidget(luminocity);
+
     top->addWidget(videoOptions,3,1);
     top->addWidget(scroll,1,2,3,2);
 //    top->addWidget(fd);

@@ -45,15 +45,22 @@ void ThePlayer::jumpTo (TheButtonInfo* button) {
     play();
 }
 
+//Oleh
 void ThePlayer::playat(qint64 value){
     setPosition(value);
+}
+
+void ThePlayer::convertSound(int passedvalue) {
+    qreal from = passedvalue/qreal(100.0);
+    qreal volumeoutput = QAudio::convertVolume(from, QAudio::LogarithmicVolumeScale, QAudio::LinearVolumeScale);
+    int roundedvolume = qRound(volumeoutput*100);
+    setVolume(roundedvolume);
 }
 
 //Bala
 void ThePlayer::pauseclick () {
     pause();
 }
-
 
 void ThePlayer::playclick () {
     play();

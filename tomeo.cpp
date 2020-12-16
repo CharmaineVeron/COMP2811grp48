@@ -35,6 +35,8 @@
 #include <QtWidgets>
 #include "fsbut.h"
 #include "fullscreen.h"
+#include <QFile>
+#include <QFileInfo>
 
 
 //Prototype 1 - changes from Oleh
@@ -51,6 +53,8 @@ vector<TheButtonInfo> getInfoIn (string loc) {
     while (it.hasNext()) { // for all files
 
         QString f = it.next();
+        QString fn = it.fileName();
+        QString fi = it.fileInfo().birthTime().date().toString("yyyy.MM.dd");
 
             if (f.contains("."))
 
@@ -61,13 +65,16 @@ vector<TheButtonInfo> getInfoIn (string loc) {
 #endif
 
             QString thumb = f.left( f .length() - 4) +".png";
+            QString thumbname = " " + fn.left( fn.length() - 4) + "\n " + fi;
             if (QFile(thumb).exists()) { // if a png thumbnail exists
                 QImageReader *imageReader = new QImageReader(thumb);
+//                QString filename = info1.fileName();
                     QImage sprite = imageReader->read(); // read the thumbnail
                     if (!sprite.isNull()) {
+//                       QString fn = info1.fileName();
                         QIcon* ico = new QIcon(QPixmap::fromImage(sprite)); // voodoo to create an icon for the button
                         QUrl* url = new QUrl(QUrl::fromLocalFile( f )); // convert the file location to a generic url
-                        out . push_back(TheButtonInfo( url , ico  ) ); // add to the output list
+                        out . push_back(TheButtonInfo( url , ico, thumbname  ) ); // add to the output list
                     }
                     else
                         qDebug() << "warning: skipping video because I couldn't process thumbnail " << thumb;
@@ -123,7 +130,7 @@ int main(int argc, char *argv[]) {
     ThePlayer *player = new ThePlayer;
 
     //prototyp 1 - changes from charmaine
-    videoWidget->setMinimumSize(680,500);
+    videoWidget->setMinimumSize(870,500);
     player->setVideoOutput(videoWidget);
     // a row of buttons
     QWidget *buttonWidget = new QWidget();
@@ -143,13 +150,13 @@ int main(int argc, char *argv[]) {
         button->init(&videos.at(i));
     }
 
-    buttonWidget->setMinimumSize(320, videos.size() * 180); //buttons.size() * 180
+    buttonWidget->setMinimumSize(QSize(350, videos.size() * 110)); //buttons.size() * 180
     buttonWidget->setLayout(layout);
     QScrollArea *scroll = new QScrollArea();
-    scroll->setMinimumSize(320, 680);
+    scroll->setMinimumSize(350, 680);
     scroll->setWidgetResizable(true);
     scroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-    scroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+    //scroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     scroll->setWidget(buttonWidget);
 
     //Prototype 1 - changes from Bala
@@ -169,7 +176,7 @@ int main(int argc, char *argv[]) {
     FSBUT *fullscreenbut = new FSBUT;
     fullscreenbut->setText("FullScreen");
     fullscreenbut->setMaximumSize(100,100);
-    fullscreenbut->setStyleSheet("border: 1px solid transparent; background-color : transparent; color : white;");
+    fullscreenbut->setStyleSheet("border: 1px solid transparent; background-color : orange; color : black;");
     fullscreenbut->connect(fullscreenbut, SIGNAL(clicked()),videoWidget,SLOT(full()));
 
     //Prototype 1 - changes from Oleh
@@ -186,18 +193,20 @@ int main(int argc, char *argv[]) {
     QVideoWidget::connect(videoWidget, SIGNAL(brightnessChanged(int)), luminocity, SLOT(setValue(int)));
     QVideoWidget::connect(luminocity, SIGNAL(sliderMoved(int)), videoWidget, SLOT(setBrightness(int)));
 
+    QSlider *volume = new QSlider(Qt::Horizontal);
+    volume->setRange(0,100);
+    QSlider::connect(player, SIGNAL(volumeChanged(int)), volume, SLOT(setValue(int)));
+    ThePlayer::connect(volume, SIGNAL(sliderMoved(int)), player, SLOT(convertSound(int)));
+
     //Prototype 1,2 - changes from Charmaine
     QWidget *videoOptions = new QWidget();
     QHBoxLayout *layout2 = new QHBoxLayout();
     layout2->addWidget(luminocity, Qt::AlignCenter);
     layout2->addStretch(50);
     layout2->addWidget(pbut, Qt::AlignCenter);
-//<<<<<<< HEAD
-
-//=======
     layout2->addWidget(plbut, Qt::AlignCenter);
     layout2->addWidget(stbut, Qt::AlignCenter);
-//>>>>>>> f71bb5b6ec0e1723c3f71e0ba026fbcd6b50c84b
+    layout2->addWidget(volume,Qt::AlignCenter);
     layout2->addWidget(fullscreenbut, Qt::AlignCenter);
     videoOptions->setMinimumSize(680, 100);
     videoOptions->setLayout(layout2);
@@ -219,7 +228,7 @@ int main(int argc, char *argv[]) {
 
     window.setWindowTitle("tomeo");
     window.setMinimumSize(1500, 680);
-    window.setStyleSheet("border: 1px solid transparent; background-color : skyblue; color : black;");
+    window.setStyleSheet("border: 1px solid transparent; background-color : black; color : white;");
 
     // add the video and the buttons to the top level widget
 

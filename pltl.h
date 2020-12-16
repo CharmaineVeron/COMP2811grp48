@@ -17,6 +17,8 @@ class PlayerTools :public QToolButton
 public:
     PlayerTools(QWidget *parent): QToolButton(parent){
         setIcon(style()->standardIcon(QStyle::SP_MediaPause));
+        setIconSize(QSize(60,50));
+        setStyleSheet("border: 2px solid transparent; background-color : orange; color : white;");
         connect(this, SIGNAL(released()), this, SLOT (paclicked() ));
     }
 private slots:
@@ -32,6 +34,8 @@ class PlayerTools1 :public QToolButton
 public:
     PlayerTools1(QWidget *parent): QToolButton(parent){
         setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
+        setIconSize(QSize(60,50));
+        setStyleSheet("border: 2px solid transparent; background-color : orange; color : white;");
         connect(this, SIGNAL(released()), this, SLOT (plclicked() ));
     }
 private slots:
@@ -48,6 +52,8 @@ class PlayerTools2 :public QToolButton
 public:
     PlayerTools2(QWidget *parent): QToolButton(parent){
         setIcon(style()->standardIcon(QStyle::SP_MediaStop));
+        setIconSize(QSize(60,50));
+        setStyleSheet("border: 2px solid transparent; background-color : orange; color : white");
         connect(this, SIGNAL(released()), this, SLOT (stpclicked() ));
     }
 private slots:
@@ -64,6 +70,8 @@ class PlayerTools3 :public QToolButton
 public:
     PlayerTools3(QWidget *parent): QToolButton(parent){
         setIcon(style()->standardIcon(QStyle::SP_MediaSkipForward));
+        setIconSize(QSize(60,50));
+        setStyleSheet("border: 2px solid transparent;background-color : orange; color : white");
         connect(this, SIGNAL(released()), this, SLOT (skpclicked() ));
     }
 private slots:

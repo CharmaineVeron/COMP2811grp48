@@ -16,29 +16,29 @@ class TheButtonInfo {
 public:
     QUrl* url; // video file to play
     QIcon* icon; // icon to display
+    QString filename;
 
-
-
-    TheButtonInfo ( QUrl* url, QIcon* icon) : url (url), icon (icon) {}
+    TheButtonInfo ( QUrl* url, QIcon* icon, QString  filename) : url (url), icon (icon), filename (filename) {}
 };
 
 
-class TheButton : public QPushButton {
+class TheButton : public QToolButton {
     Q_OBJECT
 
 public:
     TheButtonInfo* info;
 
-     TheButton(QWidget *parent) :  QPushButton(parent) {
+     TheButton(QWidget *parent) :  QToolButton(parent) {
 //         setToolButtonStyle(Qt::);
-         //setText("hi");
-         setText(QFileInfo().fileName());
-         setIconSize(QSize(320,180)); //200,110        
+         //setText()
+         setIconSize(QSize(210,130)); //200,110 //320,180
+
+         //setIconSize(Qt::re)
          connect(this, SIGNAL(released()), this, SLOT (clicked() )); // if QPushButton clicked...then run clicked() below
     }
 
     void init(TheButtonInfo* i);
-    void setOpenFileName();
+    //void setOpenFileName();
 
 private slots:
     void clicked();

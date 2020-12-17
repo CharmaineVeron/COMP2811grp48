@@ -71,6 +71,16 @@ void ThePlayer::stopclick () {
 }
 
 void ThePlayer::skipclick () {
+   //
+}
+void ThePlayer::rewclick () {
+   //
+}
+
+void ThePlayer::filclick () {
     //next();
 }
+
+
+
 

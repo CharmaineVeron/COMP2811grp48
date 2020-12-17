@@ -26,3 +26,10 @@ void PlayerTools3::skipclicked() {
     emit skipclick();
 }
 
+void PlayerTools4::rewclicked() {
+    emit rewclick();
+}
+
+void PlayerTools5::filclicked() {
+    emit filclick();
+}

@@ -158,7 +158,7 @@ int main(int argc, char *argv[]) {
     scroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     //scroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     scroll->setWidget(buttonWidget);
-
+    player->isSeekable();
     //Prototype 1 - changes from Bala
     QWidget *pbut = new QWidget();
     PlayerTools *pause = new PlayerTools(pbut);
@@ -171,6 +171,21 @@ int main(int argc, char *argv[]) {
     QWidget *stbut = new QWidget();
     PlayerTools2 *stop = new PlayerTools2(stbut);
     stop->connect(stop, SIGNAL(stopclick()), player, SLOT (stopclick()));
+    //Skip
+    QWidget *skbut = new QWidget();
+    PlayerTools3 *skip = new PlayerTools3(skbut);
+    //Rewind
+    QWidget *rwbut = new QWidget();
+    PlayerTools4 *rewind = new PlayerTools4(rwbut);
+    //File
+    QWidget *flbut = new QWidget();
+    PlayerTools5 *file = new PlayerTools5(flbut);
+    //brightness button
+    QWidget *brbut = new QWidget();
+    PlayerTools6 *brightness = new PlayerTools6(brbut);
+    //volume
+    QWidget *volbut = new QWidget();
+    PlayerTools7 *volu = new PlayerTools7(volbut);
 
     //Prototype 2 - changes from Leo
     FSBUT *fullscreenbut = new FSBUT;
@@ -203,9 +218,14 @@ int main(int argc, char *argv[]) {
     QHBoxLayout *layout2 = new QHBoxLayout();
     layout2->addWidget(luminocity, Qt::AlignCenter);
     layout2->addStretch(50);
+    layout2->addWidget(brbut, Qt::AlignCenter);
+    layout2->addWidget(rwbut, Qt::AlignCenter);
+    layout2->addWidget(stbut, Qt::AlignCenter);
+    layout2->addWidget(skbut, Qt::AlignCenter);
     layout2->addWidget(pbut, Qt::AlignCenter);
     layout2->addWidget(plbut, Qt::AlignCenter);
-    layout2->addWidget(stbut, Qt::AlignCenter);
+    layout2->addWidget(flbut, Qt::AlignCenter);
+    layout2->addWidget(volbut, Qt::AlignCenter);
     layout2->addWidget(volume,Qt::AlignCenter);
     layout2->addWidget(fullscreenbut, Qt::AlignCenter);
     videoOptions->setMinimumSize(680, 100);
@@ -213,6 +233,8 @@ int main(int argc, char *argv[]) {
 
     // tell the player what buttons and videos are available
     player->setContent(&buttons, & videos);
+
+
 
     //testing whether it is possible to achieve repsonsive layout
 //    QPushButton *fd = new QPushButton();

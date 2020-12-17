@@ -188,7 +188,7 @@ int main(int argc, char *argv[]) {
 
     brbut->setText("Brightness");
     brbut->setMinimumSize(53,60);
-    brbut->setStyleSheet("border: 2px solid transparent;background-color : orange; color : black");
+    brbut->setStyleSheet("border: 2px solid transparent;background-color : blue; color : black");
 
     //brbut->setText("Brightness");
     brbut->setMinimumSize(53,60);
@@ -200,7 +200,7 @@ int main(int argc, char *argv[]) {
     FSBUT *fullscreenbut = new FSBUT;
     fullscreenbut->setText("FullScreen");
     fullscreenbut->setMinimumSize(53,60);
-    fullscreenbut->setStyleSheet("border: 1px solid transparent; background-color : orange; color : black;");
+    fullscreenbut->setStyleSheet("border: 1px solid transparent; background-color : blue; color : black;");
     fullscreenbut->connect(fullscreenbut, SIGNAL(clicked()),videoWidget,SLOT(full()));
 
     //Prototype 1 - changes from Oleh
@@ -258,7 +258,7 @@ int main(int argc, char *argv[]) {
 
     window.setWindowTitle("tomeo");
     window.setMinimumSize(1500, 680);
-    window.setStyleSheet("border: 1px solid transparent; background-color : black; color : white;");
+    window.setStyleSheet("border: 1px solid transparent; background-color : darkBlue; color : darkBlue");
 
     // add the video and the buttons to the top level widget
 

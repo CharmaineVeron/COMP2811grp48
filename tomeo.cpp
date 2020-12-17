@@ -252,7 +252,6 @@ int main(int argc, char *argv[]) {
     layout2->addWidget(skip, Qt::AlignCenter);
     layout2->addWidget(pause, Qt::AlignCenter);
     layout2->addWidget(play, Qt::AlignCenter);
-    //layout2->addWidget(fileb, Qt::AlignCenter);
     layout2->addWidget(volu, Qt::AlignCenter);
     layout2->addWidget(volume,Qt::AlignCenter);
     //layout2->addStretch(50);

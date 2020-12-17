@@ -31,7 +31,7 @@ public:
      TheButton(QWidget *parent) :  QToolButton(parent) {
 //         setToolButtonStyle(Qt::);
          //setText()
-         setIconSize(QSize(320,180)); //210,130 //320,180
+         setIconSize(QSize(210,130)); //200,110 //320,180
 
          //setIconSize(Qt::re)
          connect(this, SIGNAL(released()), this, SLOT (clicked() )); // if QPushButton clicked...then run clicked() below

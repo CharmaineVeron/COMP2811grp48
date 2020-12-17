@@ -19,7 +19,7 @@ public:
     PlayerTools(QWidget *parent): QToolButton(parent){
         setIcon(style()->standardIcon(QStyle::SP_MediaPause));
         setIconSize(QSize(60,50));
-        setStyleSheet("border: 2px solid transparent; background-color : blue; color : black");
+        setStyleSheet("border: 2px solid transparent; background-color : white; color : white;");
         connect(this, SIGNAL(released()), this, SLOT (paclicked() ));
     }
 private slots:
@@ -36,7 +36,7 @@ public:
     PlayerTools1(QWidget *parent): QToolButton(parent){
         setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
         setIconSize(QSize(60,50));
-        setStyleSheet("border: 2px solid transparent; background-color : blue; color : black");
+        setStyleSheet("border: 2px solid transparent; background-color : white; color : white;");
         connect(this, SIGNAL(released()), this, SLOT (plclicked() ));
     }
 private slots:
@@ -54,7 +54,7 @@ public:
     PlayerTools2(QWidget *parent): QToolButton(parent){
         setIcon(style()->standardIcon(QStyle::SP_MediaStop));
         setIconSize(QSize(60,50));
-        setStyleSheet("border: 2px solid transparent; background-color : blue; color : black");
+        setStyleSheet("border: 2px solid transparent; background-color : white; color : white");
         connect(this, SIGNAL(released()), this, SLOT (stpclicked() ));
     }
 private slots:
@@ -72,7 +72,7 @@ public:
     PlayerTools3(QWidget *parent): QToolButton(parent){
         setIcon(style()->standardIcon(QStyle::SP_MediaSkipForward));
         setIconSize(QSize(60,50));
-        setStyleSheet("border: 2px solid transparent;background-color : blue; color : black");
+        setStyleSheet("border: 2px solid transparent;background-color : white; color : white");
         connect(this, SIGNAL(released()), this, SLOT (skpclicked() ));
     }
 private slots:
@@ -89,7 +89,7 @@ class PlayerTools4 :public QToolButton
 public:
     PlayerTools4(QWidget *parent): QToolButton(parent){
         setIconSize(QSize(60,50));
-        setStyleSheet("border: 2px solid transparent;background-color : blue; color : black");
+        setStyleSheet("border: 2px solid transparent;background-color : white; color : black");
         setIcon(style()->standardIcon(QStyle::SP_MediaSkipBackward));
         connect(this, SIGNAL(released()), this, SLOT (rewclicked() ));
     }
@@ -107,7 +107,7 @@ class PlayerTools5 :public QToolButton
 public:
     PlayerTools5(QWidget *parent): QToolButton(parent){
         setIconSize(QSize(60,50));
-        setStyleSheet("border: 2px solid transparent;background-color : blue; color : black;");
+        setStyleSheet("border: 2px solid transparent;background-color : white; color : black;");
         setIcon(style()->standardIcon(QStyle::SP_FileIcon));
         connect(this, SIGNAL(released()), this, SLOT (rewclicked() ));
     }
@@ -126,7 +126,7 @@ public:
     PlayerTools6(QWidget *parent): QPushButton(parent){
         setIconSize(QSize(60,50));
 //        setText("Brightness");
-//        setStyleSheet("border: 2px solid transparent;background-color : blue; color : black");
+//        setStyleSheet("border: 2px solid transparent;background-color : white; color : black");
 
     }
 };
@@ -138,7 +138,7 @@ class PlayerTools7 :public QToolButton
 public:
     PlayerTools7(QWidget *parent): QToolButton(parent){
 
-        setStyleSheet("border: 2px solid transparent;background-color : blue; color : black");
+        setStyleSheet("border: 2px solid transparent;background-color : white; color : white");
         setIcon(style()->standardIcon(QStyle::SP_MediaVolume));
         setIconSize(QSize(60,50));
     }

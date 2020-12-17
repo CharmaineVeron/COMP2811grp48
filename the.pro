@@ -11,18 +11,15 @@ SOURCES += \
         fullscreen.cpp \
         movie_slider.cpp \
         pltl.cpp \
-        responsive_layout.cpp \
         the_button.cpp \
         the_player.cpp \
         tomeo.cpp
 
 HEADERS += \
-    Video_Widget_Class.h \
     fsbut.h \
     fullscreen.h \
     movie_slider.h \
     pltl.h \
-    responsive_layout.h \
     the_button.h \
     the_player.h
 

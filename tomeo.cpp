@@ -28,7 +28,6 @@
 #include <QtCore/QDirIterator>
 #include "the_player.h"
 #include "the_button.h"
-#include "responsive_layout.h"
 #include "movie_slider.h"
 #include "pltl.h"
 #include <QtWidgets/QSlider>
@@ -139,17 +138,36 @@ int main(int argc, char *argv[]) {
     // the buttons are arranged vertically
     QVBoxLayout *layout = new QVBoxLayout();
     layout->setMargin(0);
+
+    //Prototype 1 - changes from Bala
+    //Pause
+    QWidget *pbut = new QWidget();
+    PlayerTools *pause = new PlayerTools(pbut);
+    pause->connect(pause, SIGNAL(pauseclick()), player, SLOT (pauseclick()));
+
+    //Play
+    QWidget *plbut = new QWidget();
+    PlayerTools1 *play = new PlayerTools1(plbut);
+    play->connect(play, SIGNAL(playclick()), player, SLOT (playclick()));
+
+    //Oleh's modification
+    play->hide();
+    pause->connect(pause, SIGNAL(pauseclick()), pause, SLOT(hide()));
+    pause->connect(pause, SIGNAL(pauseclick()), play, SLOT(show()));
+    play->connect(play, SIGNAL(playclick()), play, SLOT(hide()));
+    play->connect(play, SIGNAL(playclick()), pause, SLOT(show()));
+
+
     // create the four buttons
     for ( unsigned i = 0; i <videos.size(); i++ ) {
         TheButton *button = new TheButton(buttonWidget);
-        button->connect(button, SIGNAL(jumpTo(TheButtonInfo* )), player, SLOT (jumpTo(TheButtonInfo* ))); // when clicked, tell the player to play.
+        button->connect(button, SIGNAL(jumpTo(TheButtonInfo* )), player, SLOT (jumpTo(TheButtonInfo* ))); // when clicked, tell the player to play
         buttons.push_back(button);
-        //button->adjustSize();
         layout->addWidget(button);
         button->init(&videos.at(i));
     }
 
-    buttonWidget->setMinimumSize(QSize(350, videos.size() * 180)); //110
+    buttonWidget->setMinimumSize(QSize(350, videos.size() * 130)); //110
     buttonWidget->setLayout(layout);
     QScrollArea *scroll = new QScrollArea();
     scroll->setMinimumSize(350, 680);
@@ -157,16 +175,7 @@ int main(int argc, char *argv[]) {
     scroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     scroll->setWidget(buttonWidget);
     player->isSeekable();
-    //Prototype 1 - changes from Bala
-    QWidget *pbut = new QWidget();
-    PlayerTools *pause = new PlayerTools(pbut);
-    //pbut->setMaximumSize(100,100);
-    pause->connect(pause, SIGNAL(pauseclick()), player, SLOT (pauseclick()));
-    //Play
-    QWidget *plbut = new QWidget();
-    PlayerTools1 *play = new PlayerTools1(plbut);
-    //plbut->setMaximumSize(100,100);
-    play->connect(play, SIGNAL(playclick()), player, SLOT (playclick()));
+    //Prototype 1 - changes from Bala (continued)
     //Stop
     QWidget *stbut = new QWidget();
     PlayerTools2 *stop = new PlayerTools2(stbut);
@@ -178,19 +187,12 @@ int main(int argc, char *argv[]) {
     //Rewind
     QWidget *rwbut = new QWidget();
     PlayerTools4 *rewind = new PlayerTools4(rwbut);
-    //File
-    QWidget *flbut = new QWidget();
-    PlayerTools5 *file = new PlayerTools5(flbut);
-    //brightness button
-//    QWidget *brbut = new QWidget();
-//    PlayerTools6 *brightness = new PlayerTools6(brbut);
     QPushButton *brbut = new QPushButton();
 
     brbut->setText("Brightness");
     brbut->setMinimumSize(53,60);
-    brbut->setStyleSheet("border: 2px solid transparent;background-color : blue; color : black");
+    brbut->setStyleSheet("border: 2px solid transparent;background-color : white; color : black");
 
-    //brbut->setText("Brightness");
     brbut->setMinimumSize(53,60);
     //volume
     QWidget *volbut = new QWidget();
@@ -200,7 +202,7 @@ int main(int argc, char *argv[]) {
     FSBUT *fullscreenbut = new FSBUT;
     fullscreenbut->setText("FullScreen");
     fullscreenbut->setMinimumSize(53,60);
-    fullscreenbut->setStyleSheet("border: 1px solid transparent; background-color : blue; color : black;");
+    fullscreenbut->setStyleSheet("border: 1px solid transparent; background-color : white; color : black;");
     fullscreenbut->connect(fullscreenbut, SIGNAL(clicked()),videoWidget,SLOT(full()));
 
     //Prototype 1 - changes from Oleh
@@ -222,33 +224,51 @@ int main(int argc, char *argv[]) {
     QSlider::connect(player, SIGNAL(volumeChanged(int)), volume, SLOT(setValue(int)));
     ThePlayer::connect(volume, SIGNAL(sliderMoved(int)), player, SLOT(convertSound(int)));
 
+    //Prototype 3 -- changes from Oleh, collapse the video library
+    QPushButton *collapse = new QPushButton();
+    collapse->setText("  >  ");
+    collapse->setStyleSheet("border: 1px solid transparent; background-color : white; color : black");
+    QPushButton::connect(collapse, SIGNAL(clicked(bool)), scroll, SLOT(hide()));
+    QPushButton::connect(collapse, SIGNAL(clicked(bool)), collapse, SLOT(hide()));
+
+    QPushButton *expand = new QPushButton();
+    expand->setText("  <  ");
+    expand->setStyleSheet("border: 1px solid transparent; background-color : white; color : black");
+    expand->hide();
+    QPushButton::connect(expand, SIGNAL(clicked(bool)), scroll, SLOT(show()));
+    QPushButton::connect(expand, SIGNAL(clicked(bool)), expand, SLOT(hide()));
+
+    QPushButton::connect(collapse, SIGNAL(clicked(bool)), expand, SLOT(show()));
+    QPushButton::connect(expand, SIGNAL(clicked(bool)), collapse, SLOT(show()));
+
     //Prototype 1,2 - changes from Charmaine
     QWidget *videoOptions = new QWidget();
     QHBoxLayout *layout2 = new QHBoxLayout();
     layout2->addWidget(brbut, Qt::AlignCenter);
     layout2->addWidget(luminocity, Qt::AlignCenter);
     //layout2->addStretch(50);
-    layout2->addWidget(rwbut, Qt::AlignCenter);
-    layout2->addWidget(stbut, Qt::AlignCenter);
-    layout2->addWidget(skbut, Qt::AlignCenter);
-    layout2->addWidget(pbut, Qt::AlignCenter);
-    layout2->addWidget(plbut, Qt::AlignCenter);
-    layout2->addWidget(flbut, Qt::AlignCenter);
-    layout2->addWidget(volbut, Qt::AlignCenter);
+    layout2->addWidget(rewind, Qt::AlignCenter);
+    layout2->addWidget(stop, Qt::AlignCenter);
+    layout2->addWidget(skip, Qt::AlignCenter);
+    layout2->addWidget(pause, Qt::AlignCenter);
+    layout2->addWidget(play, Qt::AlignCenter);
+    //layout2->addWidget(fileb, Qt::AlignCenter);
+    layout2->addWidget(volu, Qt::AlignCenter);
     layout2->addWidget(volume,Qt::AlignCenter);
-    layout2->addStretch(50);
+    //layout2->addStretch(50);
     layout2->addWidget(fullscreenbut, Qt::AlignCenter);
+
+    //Modification from Oleh
+    layout2->addWidget(collapse);
+    layout2->addWidget(expand);
+    //
+
     videoOptions->setMinimumSize(680, 100);
+    videoOptions->setStyleSheet("border: 1px solid transparent; background-color : black; color : black");
     videoOptions->setLayout(layout2);
 
     // tell the player what buttons and videos are available
     player->setContent(&buttons, & videos);
-
-    //testing whether it is possible to achieve repsonsive layout
-//    QPushButton *fd = new QPushButton();
-//    fd->setMinimumSize(50,50);
-//    fd->setStyleSheet("border: 1px solid red; background-color : white; color : black;");
-//    fd->connect(fd,SIGNAL(clicked()),videoWidget,SLOT(charmaine()));
 
     // create the main window and layout
     QWidget window;
@@ -258,7 +278,7 @@ int main(int argc, char *argv[]) {
 
     window.setWindowTitle("tomeo");
     window.setMinimumSize(1500, 680);
-    window.setStyleSheet("border: 1px solid transparent; background-color : darkBlue; color : darkBlue");
+    window.setStyleSheet("border: 1px solid transparent; background-color : black; color : white;");
 
     // add the video and the buttons to the top level widget
 
@@ -267,10 +287,6 @@ int main(int argc, char *argv[]) {
 
     top->addWidget(videoOptions,3,1);
     top->addWidget(scroll,1,2,3,2);
-//    top->addWidget(fd);
-//    if (window.isMaximized()){
-//        top->removeWidget(videoWidget);
-//    }
 
 
     // showtime!

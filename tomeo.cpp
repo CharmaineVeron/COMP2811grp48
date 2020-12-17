@@ -139,7 +139,6 @@ int main(int argc, char *argv[]) {
     // the buttons are arranged vertically
     QVBoxLayout *layout = new QVBoxLayout();
     layout->setMargin(0);
-    //buttonWidget->setMinimumSize(300, 680);
     // create the four buttons
     for ( unsigned i = 0; i <videos.size(); i++ ) {
         TheButton *button = new TheButton(buttonWidget);
@@ -150,26 +149,28 @@ int main(int argc, char *argv[]) {
         button->init(&videos.at(i));
     }
 
-    buttonWidget->setMinimumSize(QSize(350, videos.size() * 110)); //buttons.size() * 180
+    buttonWidget->setMinimumSize(QSize(350, videos.size() * 110));
     buttonWidget->setLayout(layout);
     QScrollArea *scroll = new QScrollArea();
     scroll->setMinimumSize(350, 680);
     scroll->setWidgetResizable(true);
     scroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-    //scroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     scroll->setWidget(buttonWidget);
 
     //Prototype 1 - changes from Bala
     QWidget *pbut = new QWidget();
     PlayerTools *pause = new PlayerTools(pbut);
+    pbut->setMaximumSize(100,100);
     pause->connect(pause, SIGNAL(pauseclick()), player, SLOT (pauseclick()));
     //Play
     QWidget *plbut = new QWidget();
     PlayerTools1 *play = new PlayerTools1(plbut);
+    plbut->setMaximumSize(100,100);
     play->connect(play, SIGNAL(playclick()), player, SLOT (playclick()));
     //Stop
     QWidget *stbut = new QWidget();
     PlayerTools2 *stop = new PlayerTools2(stbut);
+    stbut->setMaximumSize(100,100);
     stop->connect(stop, SIGNAL(stopclick()), player, SLOT (stopclick()));
 
     //Prototype 2 - changes from Leo
@@ -181,20 +182,21 @@ int main(int argc, char *argv[]) {
 
     //Prototype 1 - changes from Oleh
     MovieSlider *mslider = new MovieSlider();
-    mslider->setMinimumSize(680,70);
+    pbut->setMaximumSize(250,100);
     MovieSlider::connect(player, SIGNAL(durationChanged(qint64)), mslider, SLOT(durChanged(qint64)));
     ThePlayer::connect(mslider, SIGNAL(timestampChanged(qint64)), player, SLOT(playat(qint32)));
     MovieSlider::connect(player, SIGNAL(positionChanged(qint64)), mslider, SLOT(videoMoved(qint64)));
-
     //Prototype 2 -- changes from Oleh
     QSlider *luminocity = new QSlider(Qt::Horizontal);
     luminocity->setRange(-100,100);
+    luminocity->setMaximumSize(250,70);
     luminocity->setValue(videoWidget->brightness());
     QVideoWidget::connect(videoWidget, SIGNAL(brightnessChanged(int)), luminocity, SLOT(setValue(int)));
     QVideoWidget::connect(luminocity, SIGNAL(sliderMoved(int)), videoWidget, SLOT(setBrightness(int)));
 
     QSlider *volume = new QSlider(Qt::Horizontal);
     volume->setRange(0,100);
+    volume->setMinimumSize(250,70);
     QSlider::connect(player, SIGNAL(volumeChanged(int)), volume, SLOT(setValue(int)));
     ThePlayer::connect(volume, SIGNAL(sliderMoved(int)), player, SLOT(convertSound(int)));
 
@@ -207,6 +209,7 @@ int main(int argc, char *argv[]) {
     layout2->addWidget(plbut, Qt::AlignCenter);
     layout2->addWidget(stbut, Qt::AlignCenter);
     layout2->addWidget(volume,Qt::AlignCenter);
+    layout2->addStretch(50);
     layout2->addWidget(fullscreenbut, Qt::AlignCenter);
     videoOptions->setMinimumSize(680, 100);
     videoOptions->setLayout(layout2);

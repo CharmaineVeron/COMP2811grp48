@@ -6,6 +6,7 @@
 #include <QMediaPlayer>
 #include <QWidget>
 #include <QToolButton>
+#include <QPushButton>
 #include <QSlider>
 #include <QStyle>
 #include <QComboBox>
@@ -80,6 +81,70 @@ private slots:
 signals:
     void skipclick();
 };
+
+class PlayerTools4 :public QToolButton
+{
+    Q_OBJECT
+
+public:
+    PlayerTools4(QWidget *parent): QToolButton(parent){
+        setIconSize(QSize(60,50));
+        setStyleSheet("border: 2px solid transparent;background-color : orange; color : black");
+        setIcon(style()->standardIcon(QStyle::SP_MediaSkipBackward));
+        connect(this, SIGNAL(released()), this, SLOT (rewclicked() ));
+    }
+private slots:
+    void rewclicked();
+
+signals:
+    void rewclick();
+};
+
+class PlayerTools5 :public QToolButton
+{
+    Q_OBJECT
+
+public:
+    PlayerTools5(QWidget *parent): QToolButton(parent){
+        setIconSize(QSize(60,50));
+        setStyleSheet("border: 2px solid transparent;background-color : orange; color : black;");
+        setIcon(style()->standardIcon(QStyle::SP_FileIcon));
+        connect(this, SIGNAL(released()), this, SLOT (rewclicked() ));
+    }
+private slots:
+    void filclicked();
+
+signals:
+    void filclick();
+};
+
+class PlayerTools6 :public QPushButton
+{
+    Q_OBJECT
+
+public:
+    PlayerTools6(QWidget *parent): QPushButton(parent){
+        setIconSize(QSize(60,50));
+//        setText("Brightness");
+//        setStyleSheet("border: 2px solid transparent;background-color : orange; color : black");
+
+    }
+};
+
+class PlayerTools7 :public QToolButton
+{
+    Q_OBJECT
+
+public:
+    PlayerTools7(QWidget *parent): QToolButton(parent){
+
+        setStyleSheet("border: 2px solid transparent;background-color : orange; color : white");
+        setIcon(style()->standardIcon(QStyle::SP_MediaVolume));
+        setIconSize(QSize(60,50));
+    }
+};
+
+
 
 
 #endif // PLTL_H

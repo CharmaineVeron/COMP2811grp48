@@ -10,7 +10,7 @@ class FSBUT : public QPushButton
 public:
     FSBUT(QWidget *parent = NULL):QPushButton(parent){
         setIconSize(QSize(100,50));
-        setStyleSheet("border: 2px solid transparent; background-color : orange; color : white;");
+        setStyleSheet("border: 2px solid transparent; background-color : orange; color : black;");
         connect(this, SIGNAL(clicked()), this, SLOT(onClick()));
     }
 

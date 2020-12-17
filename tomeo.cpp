@@ -149,65 +149,92 @@ int main(int argc, char *argv[]) {
         button->init(&videos.at(i));
     }
 
-    buttonWidget->setMinimumSize(QSize(350, videos.size() * 110));
+    buttonWidget->setMinimumSize(QSize(350, videos.size() * 180)); //110
     buttonWidget->setLayout(layout);
     QScrollArea *scroll = new QScrollArea();
     scroll->setMinimumSize(350, 680);
     scroll->setWidgetResizable(true);
     scroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     scroll->setWidget(buttonWidget);
-
+    player->isSeekable();
     //Prototype 1 - changes from Bala
     QWidget *pbut = new QWidget();
     PlayerTools *pause = new PlayerTools(pbut);
-    pbut->setMaximumSize(100,100);
+    //pbut->setMaximumSize(100,100);
     pause->connect(pause, SIGNAL(pauseclick()), player, SLOT (pauseclick()));
     //Play
     QWidget *plbut = new QWidget();
     PlayerTools1 *play = new PlayerTools1(plbut);
-    plbut->setMaximumSize(100,100);
+    //plbut->setMaximumSize(100,100);
     play->connect(play, SIGNAL(playclick()), player, SLOT (playclick()));
     //Stop
     QWidget *stbut = new QWidget();
     PlayerTools2 *stop = new PlayerTools2(stbut);
-    stbut->setMaximumSize(100,100);
+    //stbut->setMaximumSize(100,100);
     stop->connect(stop, SIGNAL(stopclick()), player, SLOT (stopclick()));
+    //Skip
+    QWidget *skbut = new QWidget();
+    PlayerTools3 *skip = new PlayerTools3(skbut);
+    //Rewind
+    QWidget *rwbut = new QWidget();
+    PlayerTools4 *rewind = new PlayerTools4(rwbut);
+    //File
+    QWidget *flbut = new QWidget();
+    PlayerTools5 *file = new PlayerTools5(flbut);
+    //brightness button
+//    QWidget *brbut = new QWidget();
+//    PlayerTools6 *brightness = new PlayerTools6(brbut);
+    QPushButton *brbut = new QPushButton();
+
+    brbut->setText("Brightness");
+    brbut->setMinimumSize(53,60);
+    brbut->setStyleSheet("border: 2px solid transparent;background-color : orange; color : black");
+
+    //brbut->setText("Brightness");
+    brbut->setMinimumSize(53,60);
+    //volume
+    QWidget *volbut = new QWidget();
+    PlayerTools7 *volu = new PlayerTools7(volbut);
 
     //Prototype 2 - changes from Leo
     FSBUT *fullscreenbut = new FSBUT;
     fullscreenbut->setText("FullScreen");
-    fullscreenbut->setMaximumSize(100,100);
+    fullscreenbut->setMinimumSize(53,60);
     fullscreenbut->setStyleSheet("border: 1px solid transparent; background-color : orange; color : black;");
     fullscreenbut->connect(fullscreenbut, SIGNAL(clicked()),videoWidget,SLOT(full()));
 
     //Prototype 1 - changes from Oleh
     MovieSlider *mslider = new MovieSlider();
-    pbut->setMaximumSize(250,100);
     MovieSlider::connect(player, SIGNAL(durationChanged(qint64)), mslider, SLOT(durChanged(qint64)));
     ThePlayer::connect(mslider, SIGNAL(timestampChanged(qint64)), player, SLOT(playat(qint32)));
     MovieSlider::connect(player, SIGNAL(positionChanged(qint64)), mslider, SLOT(videoMoved(qint64)));
     //Prototype 2 -- changes from Oleh
     QSlider *luminocity = new QSlider(Qt::Horizontal);
     luminocity->setRange(-100,100);
-    luminocity->setMaximumSize(250,70);
+    //luminocity->setMinimumSize(80,70);
     luminocity->setValue(videoWidget->brightness());
     QVideoWidget::connect(videoWidget, SIGNAL(brightnessChanged(int)), luminocity, SLOT(setValue(int)));
     QVideoWidget::connect(luminocity, SIGNAL(sliderMoved(int)), videoWidget, SLOT(setBrightness(int)));
 
     QSlider *volume = new QSlider(Qt::Horizontal);
     volume->setRange(0,100);
-    volume->setMinimumSize(250,70);
+    //volume->setMinimumSize(80,70);
     QSlider::connect(player, SIGNAL(volumeChanged(int)), volume, SLOT(setValue(int)));
     ThePlayer::connect(volume, SIGNAL(sliderMoved(int)), player, SLOT(convertSound(int)));
 
     //Prototype 1,2 - changes from Charmaine
     QWidget *videoOptions = new QWidget();
     QHBoxLayout *layout2 = new QHBoxLayout();
+    layout2->addWidget(brbut, Qt::AlignCenter);
     layout2->addWidget(luminocity, Qt::AlignCenter);
-    layout2->addStretch(50);
+    //layout2->addStretch(50);
+    layout2->addWidget(rwbut, Qt::AlignCenter);
+    layout2->addWidget(stbut, Qt::AlignCenter);
+    layout2->addWidget(skbut, Qt::AlignCenter);
     layout2->addWidget(pbut, Qt::AlignCenter);
     layout2->addWidget(plbut, Qt::AlignCenter);
-    layout2->addWidget(stbut, Qt::AlignCenter);
+    layout2->addWidget(flbut, Qt::AlignCenter);
+    layout2->addWidget(volbut, Qt::AlignCenter);
     layout2->addWidget(volume,Qt::AlignCenter);
     layout2->addStretch(50);
     layout2->addWidget(fullscreenbut, Qt::AlignCenter);

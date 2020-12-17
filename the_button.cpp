@@ -11,8 +11,8 @@
 
 void TheButton::init(TheButtonInfo* i) {
     setIcon( *(i->icon) );
-    setText( i->filename);
-    setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    //setText( i->filename);
+    //setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     info =  i;
 }
 

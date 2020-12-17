@@ -63,6 +63,10 @@ public slots:
     void stopclick ();
     // stop is clicked
     void skipclick ();
+    // rewind is clicked
+    void rewclick ();
+    // file is clicked
+    void filclick ();
 };
 
 #endif //CW2_THE_PLAYER_H

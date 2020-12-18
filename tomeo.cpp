@@ -187,8 +187,10 @@ int main(int argc, char *argv[]) {
     //Rewind
     QWidget *rwbut = new QWidget();
     PlayerTools4 *rewind = new PlayerTools4(rwbut);
-    QPushButton *brbut = new QPushButton();
 
+    QWidget *filebut = new QWidget();
+    PlayerTools5 *ffile = new PlayerTools5(filebut);
+    QPushButton *brbut = new QPushButton();
     brbut->setText("Brightness");
     brbut->setMinimumSize(53,60);
     brbut->setStyleSheet("border: 2px solid transparent;background-color : white; color : black");
@@ -252,6 +254,7 @@ int main(int argc, char *argv[]) {
     layout2->addWidget(skip, Qt::AlignCenter);
     layout2->addWidget(pause, Qt::AlignCenter);
     layout2->addWidget(play, Qt::AlignCenter);
+    layout2->addWidget(ffile, Qt::AlignCenter);
     layout2->addWidget(volu, Qt::AlignCenter);
     layout2->addWidget(volume,Qt::AlignCenter);
     //layout2->addStretch(50);

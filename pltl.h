@@ -110,6 +110,8 @@ public:
         setStyleSheet("border: 2px solid transparent;background-color : white; color : black;");
         setIcon(style()->standardIcon(QStyle::SP_FileIcon));
         connect(this, SIGNAL(released()), this, SLOT (rewclicked() ));
+
+        connect(this, SIGNAL(click()), this, SLOT(filclicked()));
     }
 private slots:
     void filclicked();
